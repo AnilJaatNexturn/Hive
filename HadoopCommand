@@ -1,0 +1,145 @@
+[training@localhost ~]$ pwd
+/home/training
+[training@localhost ~]$ ls -l
+total 84
+drwxrwxrwx  5 training training 4096 Feb  7 01:18 AnilSession
+-rw-rw-r--  1 training training    0 Mar  1 07:45 derby.log
+drwxr-xr-x  3 training training 4096 Mar  1 08:00 Desktop
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Documents
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Downloads
+drwxr-xr-x  9 training training 4096 Feb 14 00:38 eclipse
+drwxrwxrwx  3 training training 4096 Feb 15 11:38 hivedata
+drwxr-xr-x  2 training training 4096 Dec 18  2012 lib
+drwxrwxr-x  8 training training 4096 Feb 16 15:16 MapReducePractice
+-rw-rw-r--  1 training training 8490 Feb 16 14:26 movie.java
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Music
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Pictures
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Public
+drwxrwxr-x  2 training training 4096 Feb  7 16:30 SampleWork
+drwxrwxr-x  2 training training 4096 Dec 18  2012 scripts
+drwxrwxr-x 13 training training 4096 Nov  9  2012 src
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Templates
+drwxrwxr-x  5 training training 4096 Dec 18  2012 training_materials
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Videos
+drwxrwxr-x  9 training training 4096 Feb 14 01:40 workspace
+[training@localhost ~]$ cd training_materials/
+[training@localhost training_materials]$ ls -l
+total 12
+drwxrwxr-x 4 training training 4096 Dec 18  2012 developer
+drwxrwxr-x 3 training training 4096 Dec 18  2012 hbase
+drwxrwxr-x 5 training training 4096 Dec 18  2012 hive_and_pig
+[training@localhost training_materials]$ cd hive_and_pig/
+[training@localhost hive_and_pig]$ ls -l
+total 16
+drwxrwxr-x 2 training training 4096 Dec 18  2012 data
+drwxrwxr-x 3 training training 4096 Dec 18  2012 hive
+drwxrwxr-x 4 training training 4096 Dec 18  2012 pig
+-rw-rw-r-- 1 training training   31 Dec 18  2012 README.txt
+[training@localhost hive_and_pig]$ cd data/
+[training@localhost data]$ ls -l
+total 7388
+-rw-rw-r-- 1 training training   25038 Dec 18  2012 action.txt
+-rw-rw-r-- 1 training training   51553 Dec 18  2012 comedy.txt
+-rwxrwxr-x 1 training training 4948405 Dec 18  2012 ml-data.tgz
+-rw-rw-r-- 1 training training   23876 Dec 18  2012 thriller.txt
+-rw-rw-r-- 1 training training 2505716 Dec 18  2012 training.sql
+[training@localhost data]$ tar xvfz ml-data.tgz 
+ml-data/
+ml-data/README
+ml-data/allbut.pl
+ml-data/mku.sh
+ml-data/u.data
+ml-data/u.genre
+ml-data/u.info
+ml-data/u.item
+ml-data/u.occupation
+ml-data/u.user
+ml-data/ub.test
+ml-data/u1.test
+ml-data/u1.base
+ml-data/u2.test
+ml-data/u2.base
+ml-data/u3.test
+ml-data/u3.base
+ml-data/u4.test
+ml-data/u4.base
+ml-data/u5.test
+ml-data/u5.base
+ml-data/ua.test
+ml-data/ua.base
+ml-data/ub.base
+[training@localhost data]$ cd ml-data
+[training@localhost ml-data]$ more u.data
+196	242	3	881250949
+186	302	3	891717742
+22	377	1	878887116
+244	51	2	880606923
+166	346	1	886397596
+298	474	4	884182806
+115	265	2	881171488
+253	465	5	891628467
+305	451	3	886324817
+6	86	3	883603013
+62	257	2	879372434
+286	1014	5	879781125
+200	222	5	876042340
+210	40	3	891035994
+224	29	3	888104457
+303	785	3	879485318
+122	387	5	879270459
+194	274	2	879539794
+291	1042	4	874834944
+234	1184	2	892079237
+119	392	4	886176814
+167	486	4	892738452
+299	144	4	877881320
+291	118	2	874833878
+308	1	4	887736532
+95	546	2	879196566
+38	95	5	892430094
+[training@localhost ml-data]$ hadoop fs -ls
+Found 17 items
+drwxr-xr-x   - training supergroup          0 2023-02-10 11:26 OddEven
+drwxr-xr-x   - training supergroup          0 2023-02-13 15:24 avgwordinput
+drwxr-xr-x   - training supergroup          0 2023-02-13 15:26 avgwordoutput
+drwxr-xr-x   - training supergroup          0 2023-02-14 01:51 cocurence
+drwxr-xr-x   - training supergroup          0 2023-02-14 01:55 cocurenceoutput
+-rw-r--r--   1 training supergroup         42 2023-02-14 01:53 cooccurence
+drwxr-xr-x   - training supergroup          0 2023-02-13 10:05 findwordinput
+drwxr-xr-x   - training supergroup          0 2023-02-16 15:16 hiveinput
+drwxr-xr-x   - training supergroup          0 2023-02-16 14:27 movie
+-rw-r--r--   1 training supergroup         73 2023-02-10 11:29 oddeveninput
+drwxr-xr-x   - training supergroup          0 2023-02-10 11:31 oddevenoutput
+drwxr-xr-x   - training supergroup          0 2023-02-10 11:48 oddevenoutput1
+drwxr-xr-x   - training supergroup          0 2023-02-12 16:01 partisioninput
+drwxr-xr-x   - training supergroup          0 2023-02-12 16:03 partisionoutput
+drwxr-xr-x   - training supergroup          0 2023-02-12 16:08 partisionoutputt
+drwxr-xr-x   - training supergroup          0 2023-02-09 19:46 wordcount
+drwxr-xr-x   - training supergroup          0 2023-02-09 19:50 wordoutput
+[training@localhost ml-data]$ hadoop fs -ls hiveinput
+Found 3 items
+-rw-r--r--   1 training supergroup         43 2023-02-16 15:07 hiveinput/sample.txt
+-rw-r--r--   1 training supergroup         42 2023-02-16 15:16 hiveinput/sample1.txt
+-rw-r--r--   1 training supergroup        202 2023-02-14 14:27 hiveinput/u.genre
+[training@localhost ml-data]$ hadoop fs -put u.data hiveinput
+[training@localhost ml-data]$ hadoop fs -ls hiveinput
+Found 4 items
+-rw-r--r--   1 training supergroup         43 2023-02-16 15:07 hiveinput/sample.txt
+-rw-r--r--   1 training supergroup         42 2023-02-16 15:16 hiveinput/sample1.txt
+-rw-r--r--   1 training supergroup    1979173 2023-03-01 09:06 hiveinput/u.data
+-rw-r--r--   1 training supergroup        202 2023-02-14 14:27 hiveinput/u.genre
+[training@localhost ml-data]$ hadoop fs -ls /user/hive/warehouse
+Found 9 items
+drwxr-xr-x   - training supergroup          0 2023-02-15 12:19 /user/hive/warehouse/anil.db
+drwxr-xr-x   - training supergroup          0 2023-02-15 12:19 /user/hive/warehouse/db.db
+drwxr-xr-x   - training supergroup          0 2023-03-01 07:17 /user/hive/warehouse/hbaserating
+drwxr-xr-x   - training supergroup          0 2023-02-28 23:30 /user/hive/warehouse/hbaseuserratings
+drwxr-xr-x   - training supergroup          0 2023-02-15 11:50 /user/hive/warehouse/movi_parts
+drwxr-xr-x   - training supergroup          0 2023-02-15 14:52 /user/hive/warehouse/rating_buckets
+drwxr-xr-x   - training supergroup          0 2023-02-14 13:24 /user/hive/warehouse/user
+drwxr-xr-x   - training supergroup          0 2023-02-14 13:04 /user/hive/warehouse/userrating
+drwxr-xr-x   - training supergroup          0 2023-03-01 09:10 /user/hive/warehouse/userting
+[training@localhost ml-data]$ hadoop fs -ls /user/hive/warehouse/userting
+Found 1 items
+-rw-r--r--   1 training supergroup    1979173 2023-03-01 09:06 /user/hive/warehouse/userting/u.data
+[training@localhost ml-data]$ 

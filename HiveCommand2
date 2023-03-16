@@ -1,0 +1,201 @@
+[training@localhost ~]$ hive
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+Hive history file=/tmp/training/hive_job_log_training_202303011104_448275244.txt
+hive> show table
+    > ;
+FAILED: ParseException line 1:5 mismatched input '<EOF>' expecting EXTENDED near 'table' in show statement
+
+hive> list
+    > ;
+Usage: list [FILE|JAR|ARCHIVE] [<value> [<value>]*]
+hive> show tables ;
+OK
+genre
+hbaserating
+hbaseuserratings
+movi_parts
+rating_buckets
+user
+userrating
+userting
+Time taken: 1.519 seconds
+hive> create table mpvie(movieid int,name string,date string,imdb string)
+    > partitioned by (genre string)
+    > row format delimited fields terminated by ',' ;
+FAILED: ParseException line 1:43 mismatched input 'date' expecting Identifier near ',' in column specification
+
+hive> create table movie(movieid int,name string,date string,imdb string)
+    > partitioned by (genre string)                                      
+    > row format delimited fields terminated by ',';                     
+FAILED: ParseException line 1:43 mismatched input 'date' expecting Identifier near ',' in column specification
+
+hive> create table movie(movieid int,name string,date string,imdb string)
+    > partitioned by (genre string)                                      
+    > row format delimited fields terminated by ',';                     
+FAILED: ParseException line 1:43 mismatched input 'date' expecting Identifier near ',' in column specification
+
+hive> create table movie(movieid int,name string,datee string,imdb string)
+    > partitioned by (genre string)                                       
+    > row format delimited fields terminated by ',';                      
+OK
+Time taken: 0.673 seconds
+hive> load data inpath '/action.txt'
+    > into table movie;
+FAILED: SemanticException [Error 10062]: Need to specify partition columns because the destination table is partitioned
+hive> load data inpath '/action.txt'
+    > into table movie;             
+FAILED: SemanticException [Error 10062]: Need to specify partition columns because the destination table is partitioned
+hive> load data inpath '/action.txt'
+    > into table movie              
+    > partision(genre='action');
+FAILED: ParseException line 3:0 mismatched input 'partision' expecting EOF near 'movie'
+
+hive> load data inpath '/home/training/training_materials/hive_and_pig/data/action.txt'
+    > into table movie                                                                 
+    > partition(genre='action');                                                       
+FAILED: SemanticException Line 1:17 Invalid path ''/home/training/training_materials/hive_and_pig/data/action.txt'': No files matching path hdfs://0.0.0.0:8020/home/training/training_materials/hive_and_pig/data/action.txt
+hive> load data inpath '/home/training/training_materials/hive_and_pig/data/action.txt'
+    > load data inpath '/home/training/training_materials/hive_and_pig/data/action.txt';
+FAILED: ParseException line 2:0 mismatched input 'load' expecting INTO near ''/home/training/training_materials/hive_and_pig/data/action.txt'' in load statement
+
+hive> load data local inpath '/home/training/training_materials/hive_and_pig/data/action.txt' 
+    > into table movie                                                                       
+    > partition(genre='action');                                                             
+Copying data from file:/home/training/training_materials/hive_and_pig/data/action.txt
+Copying file: file:/home/training/training_materials/hive_and_pig/data/action.txt
+Loading data to table default.movie partition (genre=action)
+OK
+Time taken: 0.687 seconds
+hive> load data local inpath '/home/training/training_materials/hive_and_pig/data/comedy.txt'
+    > into table movie                                                                       
+    > partition(genre='comedyy');                                                            
+Copying data from file:/home/training/training_materials/hive_and_pig/data/comedy.txt
+Copying file: file:/home/training/training_materials/hive_and_pig/data/comedy.txt
+Loading data to table default.movie partition (genre=comedyy)
+OK
+Time taken: 0.513 seconds
+hive> load data local inpath '/home/training/training_materials/hive_and_pig/data/thriller.txt'
+    > into table movie                                                                         
+    > partition(genre='thrillerr');                                                            
+Copying data from file:/home/training/training_materials/hive_and_pig/data/thriller.txt
+Copying file: file:/home/training/training_materials/hive_and_pig/data/thriller.txt
+Loading data to table default.movie partition (genre=thrillerr)
+OK
+Time taken: 0.42 seconds
+hive> describe movie;
+OK
+movieid	int	
+name	string	
+datee	string	
+imdb	string	
+genre	string	
+Time taken: 0.081 seconds
+hive> show partitions movie;
+OK
+genre=action
+genre=comedyy
+genre=thrillerr
+Time taken: 0.11 seconds
+hive> create table moviebucket(userid int,movieid int,rating int,unixtime int)                 
+    > clustered by (movieid) into 8 buckets;
+OK
+Time taken: 0.141 seconds
+hive> set hive.enforce.bucketing=true;
+hive> insert overwrite table moviebucket select * from userting cluster by movieid;
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 8
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+Starting Job = job_202303010654_0008, Tracking URL = http://0.0.0.0:50030/jobdetails.jsp?jobid=job_202303010654_0008
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -Dmapred.job.tracker=0.0.0.0:8021 -kill job_202303010654_0008
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 8
+2023-03-01 11:36:06,940 Stage-1 map = 0%,  reduce = 0%
+2023-03-01 11:36:08,959 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.54 sec
+2023-03-01 11:36:09,966 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.54 sec
+2023-03-01 11:36:10,978 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.54 sec
+2023-03-01 11:36:11,986 Stage-1 map = 100%,  reduce = 25%, Cumulative CPU 5.87 sec
+2023-03-01 11:36:12,993 Stage-1 map = 100%,  reduce = 25%, Cumulative CPU 5.87 sec
+2023-03-01 11:36:14,000 Stage-1 map = 100%,  reduce = 25%, Cumulative CPU 5.87 sec
+2023-03-01 11:36:15,007 Stage-1 map = 100%,  reduce = 50%, Cumulative CPU 10.29 sec
+2023-03-01 11:36:16,019 Stage-1 map = 100%,  reduce = 50%, Cumulative CPU 10.29 sec
+2023-03-01 11:36:17,026 Stage-1 map = 100%,  reduce = 50%, Cumulative CPU 10.29 sec
+2023-03-01 11:36:18,037 Stage-1 map = 100%,  reduce = 75%, Cumulative CPU 14.6 sec
+2023-03-01 11:36:19,045 Stage-1 map = 100%,  reduce = 75%, Cumulative CPU 14.6 sec
+2023-03-01 11:36:20,052 Stage-1 map = 100%,  reduce = 75%, Cumulative CPU 14.6 sec
+2023-03-01 11:36:21,059 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 18.78 sec
+2023-03-01 11:36:22,069 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 18.78 sec
+2023-03-01 11:36:23,088 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 18.78 sec
+MapReduce Total cumulative CPU time: 18 seconds 780 msec
+Ended Job = job_202303010654_0008
+Loading data to table default.moviebucket
+rmr: DEPRECATED: Please use 'rm -r' instead.
+Deleted /user/hive/warehouse/moviebucket
+100000 Rows loaded to moviebucket
+MapReduce Jobs Launched: 
+Job 0: Map: 1  Reduce: 8   Cumulative CPU: 18.78 sec   HDFS Read: 0 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 18 seconds 780 msec
+OK
+Time taken: 19.68 seconds
+hive> select count(*) from moviebucket tablesample (bucket 3 out of 8);
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+Starting Job = job_202303010654_0009, Tracking URL = http://0.0.0.0:50030/jobdetails.jsp?jobid=job_202303010654_0009
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -Dmapred.job.tracker=0.0.0.0:8021 -kill job_202303010654_0009
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2023-03-01 11:43:04,462 Stage-1 map = 0%,  reduce = 0%
+2023-03-01 11:43:06,471 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.0 sec
+2023-03-01 11:43:07,477 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.0 sec
+2023-03-01 11:43:08,482 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.29 sec
+2023-03-01 11:43:09,487 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.29 sec
+2023-03-01 11:43:10,502 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 2.29 sec
+MapReduce Total cumulative CPU time: 2 seconds 290 msec
+Ended Job = job_202303010654_0009
+MapReduce Jobs Launched: 
+Job 0: Map: 1  Reduce: 1   Cumulative CPU: 2.29 sec   HDFS Read: 0 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 2 seconds 290 msec
+OK
+12527
+Time taken: 8.812 seconds
+hive> list jars
+    > ;
+file:/usr/lib/hive/lib/hive-builtins-0.9.0-cdh4.1.1.jar
+hive> add jar /usr/lib/hive/lib/hive-builtins-0.9.0-cdh4.1.1.jar;
+Added /usr/lib/hive/lib/hive-builtins-0.9.0-cdh4.1.1.jar to class path
+Added resource: /usr/lib/hive/lib/hive-builtins-0.9.0-cdh4.1.1.jar
+hive> create table action(moviid int,details string) row format serde 
+    > 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe' with 
+    > serdeproperties ("input.regex"="(\\d*),(.*)");
+FAILED: Error in metadata: java.lang.RuntimeException: MetaException(message:org.apache.hadoop.hive.serde2.SerDeException org.apache.hadoop.hive.contrib.serde2.RegexSerDe only accepts string columns, but column[0] named moviid has type int)
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask
+hive> create table action(moviid string,details string) row format serde 
+    > 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe' with            
+    > serdeproperties ("input.regex"="(\\d*),(.*)");                     
+OK
+Time taken: 0.272 seconds
+hive> load data local inpath '/home/training/training_materials/hive_and_pig/data/action.txt'  
+    > into table action;
+Copying data from file:/home/training/training_materials/hive_and_pig/data/action.txt
+Copying file: file:/home/training/training_materials/hive_and_pig/data/action.txt
+Loading data to table default.action
+OK
+Time taken: 0.195 seconds
+hive> select * from action limit 4;
+OK
+2	GoldenEye (1995),01-Jan-1995,http://us.imdb.com/M/title-exact?GoldenEye%20(1995)
+4	Get Shorty (1995),01-Jan-1995,http://us.imdb.com/M/title-exact?Get%20Shorty%20(1995)
+17	From Dusk Till Dawn (1996),05-Feb-1996,http://us.imdb.com/M/title-exact?From%20Dusk%20Till%20Dawn%20(1996)
+21	Muppet Treasure Island (1996),16-Feb-1996,http://us.imdb.com/M/title-exact?Muppet%20Treasure%20Island%20(1996)
+Time taken: 0.145 seconds
+hive> 

@@ -1,0 +1,72 @@
+[training@localhost ~]$ pwd
+/home/training
+[training@localhost ~]$ ls -l
+total 84
+drwxrwxrwx  5 training training 4096 Feb  7 01:18 AnilSession
+-rw-rw-r--  1 training training    0 Mar  1 11:04 derby.log
+drwxr-xr-x  4 training training 4096 Mar  1 09:41 Desktop
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Documents
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Downloads
+drwxr-xr-x  9 training training 4096 Feb 14 00:38 eclipse
+drwxrwxrwx  3 training training 4096 Feb 15 11:38 hivedata
+drwxr-xr-x  2 training training 4096 Dec 18  2012 lib
+drwxrwxr-x  8 training training 4096 Feb 16 15:16 MapReducePractice
+-rw-rw-r--  1 training training 8490 Feb 16 14:26 movie.java
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Music
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Pictures
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Public
+drwxrwxr-x  2 training training 4096 Feb  7 16:30 SampleWork
+drwxrwxr-x  2 training training 4096 Dec 18  2012 scripts
+drwxrwxr-x 13 training training 4096 Nov  9  2012 src
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Templates
+drwxrwxr-x  5 training training 4096 Dec 18  2012 training_materials
+drwxr-xr-x  2 training training 4096 Jan 22 15:52 Videos
+drwxrwxr-x  9 training training 4096 Feb 14 01:40 workspace
+[training@localhost ~]$ cd training_materials/
+[training@localhost training_materials]$ ls 
+developer  hbase  hive_and_pig
+[training@localhost training_materials]$ cd hive_and_pig/
+[training@localhost hive_and_pig]$ ls
+data  hive  pig  README.txt
+[training@localhost hive_and_pig]$ cd data/
+[training@localhost data]$ ls
+action.txt  comedy.txt  ml-data  ml-data.tgz  thriller.txt  training.sql
+[training@localhost data]$ cd action.txt 
+bash: cd: action.txt: Not a directory
+[training@localhost data]$ ls -l
+total 7392
+-rw-rw-r-- 1 training training   25038 Dec 18  2012 action.txt
+-rw-rw-r-- 1 training training   51553 Dec 18  2012 comedy.txt
+drwxrws--- 2 training training    4096 Mar  8  2001 ml-data
+-rwxrwxr-x 1 training training 4948405 Dec 18  2012 ml-data.tgz
+-rw-rw-r-- 1 training training   23876 Dec 18  2012 thriller.txt
+-rw-rw-r-- 1 training training 2505716 Dec 18  2012 training.sql
+[training@localhost data]$ hadoop fs -ls /user/hive/warehouse/movie
+Found 3 items
+drwxr-xr-x   - training supergroup          0 2023-03-01 11:26 /user/hive/warehouse/movie/genre=action
+drwxr-xr-x   - training supergroup          0 2023-03-01 11:27 /user/hive/warehouse/movie/genre=comedyy
+drwxr-xr-x   - training supergroup          0 2023-03-01 11:28 /user/hive/warehouse/movie/genre=thrillerr
+[training@localhost data]$ hadoop fs -ls /user/hive/warehouse
+Found 11 items
+drwxr-xr-x   - training supergroup          0 2023-02-15 12:19 /user/hive/warehouse/anil.db
+drwxr-xr-x   - training supergroup          0 2023-02-15 12:19 /user/hive/warehouse/db.db
+drwxr-xr-x   - training supergroup          0 2023-03-01 07:17 /user/hive/warehouse/hbaserating
+drwxr-xr-x   - training supergroup          0 2023-02-28 23:30 /user/hive/warehouse/hbaseuserratings
+drwxr-xr-x   - training supergroup          0 2023-02-15 11:50 /user/hive/warehouse/movi_parts
+drwxr-xr-x   - training supergroup          0 2023-03-01 11:28 /user/hive/warehouse/movie
+drwxr-xr-x   - training supergroup          0 2023-03-01 11:36 /user/hive/warehouse/moviebucket
+drwxr-xr-x   - training supergroup          0 2023-02-15 14:52 /user/hive/warehouse/rating_buckets
+drwxr-xr-x   - training supergroup          0 2023-02-14 13:24 /user/hive/warehouse/user
+drwxr-xr-x   - training supergroup          0 2023-02-14 13:04 /user/hive/warehouse/userrating
+drwxr-xr-x   - training supergroup          0 2023-03-01 09:10 /user/hive/warehouse/userting
+[training@localhost data]$ hadoop fs -ls /user/hive/warehouse/moviebucket
+Found 8 items
+-rw-r--r--   1 training supergroup     229924 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000000_0
+-rw-r--r--   1 training supergroup     250253 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000001_0
+-rw-r--r--   1 training supergroup     247620 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000002_0
+-rw-r--r--   1 training supergroup     240129 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000003_0
+-rw-r--r--   1 training supergroup     266397 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000004_0
+-rw-r--r--   1 training supergroup     232873 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000005_0
+-rw-r--r--   1 training supergroup     242315 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000006_0
+-rw-r--r--   1 training supergroup     269662 2023-03-01 11:36 /user/hive/warehouse/moviebucket/000007_0
+[training@localhost data]$ 
